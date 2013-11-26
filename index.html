@@ -51,58 +51,30 @@
  
 
   <script type="text/x-handlebars" id="movies">
-            {{#each}}
+    {{#each}}
 
-            <div class="row movie">
-              <div class="small-2 columns">
-                <img {{ bind-attr src=posterURL }} ></img>
-              </div>
+      {{partial 'movies/movie'}}
 
-              <div class="small-8 columns">
-                {{#link-to 'movie' this}}
-                  {{{title}}}
-                {{/link-to}}
-                <p>{{overview}}</p>            
-              </div>
+    {{/each}}
+  </script>
 
-              <div class="small-2 columns">
-                <button {{action 'delete'}}>Remove</button>
-              </div>
 
-            </div>
 
-            {{/each}}
-        <div class="small-9 columns">
-          {{outlet}}
+  <script type="text/x-handlebars" id="movies/_movie">
+    <div class="row movie">
+        <div class="small-2 columns">
+          <img {{ bind-attr src=posterURL }} ></img>
+        </div>
+
+        <div class="small-6 columns">
+            <h1>{{{title}}}</h1>
+          <p>{{overview}}</p>            
+        </div>
+
+        <div class="small-4 columns">
+          <button {{action 'delete'}} class="right small">Remove</button>
         </div>
       </div>
-  </script>
-
-
-  <script type="text/x-handlebars" id="movie">
-    // {{#if isEditing}}
-    //   {{partial 'post/edit'}}
-    //   <button {{action 'doneEditing'}}>Done</button>
-    // {{else}}
-    //   <button {{action 'edit'}}>Edit</button>
-    // {{/if}}
-    // <h1>{{{title}}}</h1>
-    // <h2>by {{author.name}} <small class="muted">({{format-date date}})</small></h2>
-    // <hr>
-
-    // <div class="intro">
-    //   {{format-markdown excerpt}}  
-    // </div>
-
-    // <div class="below-the-fold">
-    //   {{format-markdown body}}
-    // </div>
-  </script>
-
-  <script type="text/x-handlebars" id="post/_edit">
-    <p>{{input type="text" value=title}}</p>
-    <p>{{input type="text" value=excerpt}}</p>
-    <p>{{textarea value=body}}</p>
   </script>
 
   <script type="text/x-handlebars" id="about">

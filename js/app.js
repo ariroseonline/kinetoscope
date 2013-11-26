@@ -18,27 +18,33 @@ var startApp = function(){
   App = Ember.Application.create();
   App.Router.map(function(){
   	this.resource('about');
-  	this.resource('movies', function(){
-      this.resource('movie', { path: ':movie_id' });
-    });
+  	this.resource('movies');
   });
 
   App.MoviesRoute = Ember.Route.extend({
   	model:function(){
-  		return $.getJSON('http://api.themoviedb.org/3/search/movie?query=fight&api_key=1c8646bfb6df13bac2a172fbfc0af4c0').then(function(data){
-        
-        var posterSize = "w154";
+
+      //Grab search results for query, then iterate through results
+  		return $.getJSON('http://api.themoviedb.org/3/search/movie?query=fight&api_key=1c8646bfb6df13bac2a172fbfc0af4c0')
+      .then(function(data){ 
         return data.results.map(function(movie){
 
-          //construct the movie poster image URL if it exists, otherwise put in placeholder
-          if( movie.poster_path ) {
-            movie.posterURL = settings.baseURL + settings.posterSize + movie.poster_path;
-          }
-          else {
-            movie.posterURL = "http://placehold.it/92x137&text=Sry+:("
-          }
+          //Grab each individual movie's specific information based on it's ID
+          return $.getJSON("http://api.themoviedb.org/3/movie/" + movie.id + "?api_key=1c8646bfb6df13bac2a172fbfc0af4c0").
+          then(function(data){
+            movie.overview = data.overview;
 
-          return movie;
+            //construct a movie poster image URL if it exists, otherwise put in placeholder
+            if( movie.poster_path ) {
+              movie.posterURL = settings.baseURL + settings.posterSize + movie.poster_path;
+            }
+            else {
+              movie.posterURL = "http://placehold.it/92x137&text=Sry+:("
+            }
+
+            return movie;
+
+          })
 
 
 
