@@ -1,0 +1,50 @@
+/* Put your CSS here */
+html, body {
+}
+
+body {
+	background: #f2f2f2;
+}
+
+.active {
+	font-weight:bold;
+}
+
+#main {
+	margin:20px 0;
+}
+
+table {
+	width:100%;
+}
+
+.title-area .name {
+	text-transform: uppercase;
+	letter-spacing: 1em;
+	font-weight: 100;
+}
+
+.top-bar-section ul li > a.active   {
+background: #FFE436;
+color: rgb(31, 27, 1);
+font-weight:900; }
+.top-bar-section ul li > a.active:hover {
+background: #FFE436; }
+
+.top-bar input {
+    height: auto;
+    padding-top: .35rem;
+    padding-bottom: .35rem;
+}
+
+.top-bar .toggle-topbar.menu-icon a span {
+	height: 2px;
+}
+
+
+.movie {
+	padding: 20px 0;
+background: white;
+margin-bottom: 20px;
+box-shadow: 1px 1px 2px 0px rgba(0,0,0,.2);
+}
