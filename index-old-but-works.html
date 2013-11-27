@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="css/foundation-icons.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/libs/modernizr.js"></script>
+
+</head>
+<body class="antialiased hide-extras">
+
+  <script type="text/x-handlebars">
+    <div class="contain-to-grid">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="#">Kinetoscope</a></h1>
+          </li>
+          <li class="toggle-topbar menu-icon">
+            <a href="#"><span>Menu</span></a>
+          </li>
+        </ul>
+
+        <section class="top-bar-section">
+
+          <ul class="right">
+
+            <li>{{#link-to 'movies'}}My Queue{{/link-to}}</li>
+            <li class="has-form">
+              <div class="row collapse">
+                <div class="large-8 small-9 columns">
+                  <input type="text" placeholder="Title, Actor, Studio...">
+                </div>
+                <div class="large-4 small-3 columns">
+                  {{#link-to 'search' class="alert button expand"}}Search{{/link-to}}
+                </div>
+              </div>
+            </li>   
+          </ul>
+
+  
+        </section>
+      </nav>
+    </div>
+
+    <div id="main">
+      {{outlet}}
+    </div>
+  </script>
+
+ 
+
+  <script type="text/x-handlebars" id="movies">
+    {{#each}}
+
+      {{partial 'movies/movie'}}
+
+    {{/each}}
+  </script>
+
+
+
+  <script type="text/x-handlebars" id="movies/_movie">
+    <div class="row movie">
+        <div class="small-2 columns poster">
+          <img {{ bind-attr src=posterURL }} ></img>
+        </div>
+
+        <div class="small-8 columns">
+          <h1>{{{title}}}</h1>
+          <ul class="inline-list">
+            <li><span>Popularity:</span> {{ popularity }}</li>
+            <li><span>Rating:</span> {{ vote_average }}</li>
+            <li><span>Votes:</span> {{ vote_count }}</li>
+          </ul>         
+        </div>
+
+        <div class="small-2 columns">
+          <button {{action 'delete'}} class="right alert remove-movie"><i class="fi-x"></i></button>
+        </div>
+      </div>
+  </script>
+
+  <script type="text/x-handlebars" id="about">
+      <div class="row">
+        <div class="small-12 columns">
+          <p>Yehuda Katz is a member of the <a href="http://emberjs.com">Ember.js</a>, <a href="http://rubyonrails.org">Ruby on Rails</a>
+          and <a href="http://www.jquery.com">jQuery</a> Core Teams; he spends his daytime hours at the startup he founded,
+          <a href="http://www.tilde.io">Tilde Inc.</a>.</p>
+          <p>Yehuda is co-author of best-selling <a href="http://affiliate.manning.com/idevaffiliate.php?id=485_176">jQuery in Action</a> and
+          <a href="http://affiliate.manning.com/idevaffiliate.php?id=485_145">Rails 3 in Action</a>.</p>
+          <p>He spends most of his time hacking on open source—his main projects, along with others, like <a href="https://github.com/wycats/thor">Thor</a>,
+          <a href="http://www.handlebarsjs.com">Handlebars</a> and <a href="https://github.com/carlhuda/janus">Janus</a>—or traveling the world doing evangelism work.</p>
+          <p>He can be found on Twitter as <a href="http://www.twitter.com/wycats">@wycats</a>.</p>
+      </div>
+ </script>
+
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/foundation.min.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.2.0.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.0.0-beta.3/ember-data.prod.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+    <script src="js/script.js"></script>
+
+  <script src="js/app.js"></script>
+  <script src="js/models/movie.js"></script>
+  <script src="js/router.js"></script>
+
+  <script>
+  </script>
+
+</body>
+</html>

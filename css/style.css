@@ -1,10 +1,7 @@
-/* Put your CSS here */
 html, body {
-}
-
-body {
 	background: #f2f2f2;
 }
+
 
 .active {
 	font-weight:bold;
@@ -24,13 +21,6 @@ table {
 	font-weight: 100;
 }
 
-.top-bar-section ul li > a.active   {
-background: #FFE436;
-color: rgb(31, 27, 1);
-font-weight:900; }
-.top-bar-section ul li > a.active:hover {
-background: #FFE436; }
-
 .top-bar input {
     height: auto;
     padding-top: .35rem;
@@ -44,7 +34,31 @@ background: #FFE436; }
 
 .movie {
 	padding: 20px 0;
-background: white;
-margin-bottom: 20px;
-box-shadow: 1px 1px 2px 0px rgba(0,0,0,.2);
+	background: white;
+	box-shadow: 1px 1px 2px 0px rgba(0,0,0,.2);
+}
+
+.movie.empty {
+	text-align:center;
+}
+
+.movie.inqueue{
+	background:orange;
+}
+
+
+.movie .poster {
+	text-align: center;
+}
+
+.movie ul span {
+	font-weight:900;
+}
+
+.movie .remove-movie {
+	padding:0.65rem 1rem;
+}
+.movie .remove-movie i {
+	font-size: 20px;
+	text-shadow: 0px 2px 0px black;
 }

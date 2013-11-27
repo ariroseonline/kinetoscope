@@ -5,13 +5,14 @@
 <title>Ember Starter Kit</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="css/foundation-icons.css">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/libs/modernizr.js"></script>
 
 </head>
 <body class="antialiased hide-extras">
 
-  <script type="text/x-handlebars">
+  <script type="text/x-handlebars" id="application">
     <div class="contain-to-grid">
       <nav class="top-bar" data-topbar>
         <ul class="title-area">
@@ -26,19 +27,21 @@
         <section class="top-bar-section">
 
           <ul class="right">
+            <li>{{#link-to 'queue'}}My Queue{{/link-to}}</li>
+            <li>{{#link-to 'movies'}}Movies{{/link-to}}</li>
+            <li class="divider"></li>
+
             <li class="has-form">
               <div class="row collapse">
                 <div class="large-8 small-9 columns">
-                  <input type="text" placeholder="Add a Movie">
+                  {{ input action="searchMovie" type="text" id="search-movie" placeholder="Title, Actor, Studio..." value=query }}
                 </div>
                 <div class="large-4 small-3 columns">
-                  <a href="#" class="alert button expand">Queue It</a>
+                  {{#link-to action="searchMovie" class="alert button expand"}}Search{{/link-to}}
                 </div>
               </div>
             </li>   
           </ul>
-
-  
         </section>
       </nav>
     </div>
@@ -46,57 +49,106 @@
     <div id="main">
       {{outlet}}
     </div>
+
   </script>
 
- 
-
   <script type="text/x-handlebars" id="movies">
-    {{#each}}
+    {{#each itemController="movie"}}
+      {{partial "results/movie"}}
+    {{else}}
+      <div class="row movie empty">
+        No Results :-(
+      </div>    {{/each}}
+  </script>
 
-      {{partial 'movies/movie'}}
+  <script type="text/x-handlebars" id="search">
+    {{#each itemController="movie"}}
+      {{partial "results/movie"}}
+    {{else}}
+      <div class="row movie empty">
+        No Results :-(
+      </div>
+    {{/each}}
+  </script>
 
+  <script type="text/x-handlebars" id="results/_movie">
+    <div {{ bind-attr class=":row :movie inQueue:inqueue" }}>
+        <div class="small-2 columns poster">
+          <img {{ bind-attr src=posterURL }} ></img>
+        </div>
+
+        <div class="small-8 columns">
+          <h1>{{ title }}</h1>
+          <ul class="inline-list">
+            <li><span>Popularity:</span> {{ popularity }}</li>
+            <li><span>Rating:</span> {{ vote_average }}</li>
+            <li><span>Votes:</span> {{ vote_count }}</li>
+          </ul>         
+        </div>
+
+        <div class="small-2 columns">
+          <button {{action 'queueMovie' this }} class="right success queue-movie"><i class="fi-plus"></i></button>
+        </div>
+      </div>
+  </script>
+ 
+  <script type="text/x-handlebars" id="queue">
+    {{#each itemController="movie"}}
+      {{#if inQueue}}
+        {{partial "queue/movie"}}
+      {{/if}}
+
+    {{else}}
+      <div class="row movie empty">
+        No Movies In Your Queue. Kindly Start Clicking Please.
+      </div>    
     {{/each}}
   </script>
 
 
 
-  <script type="text/x-handlebars" id="movies/_movie">
+  <script type="text/x-handlebars" id="queue/_movie">
     <div class="row movie">
-        <div class="small-2 columns">
+        <div class="small-2 columns poster">
           <img {{ bind-attr src=posterURL }} ></img>
         </div>
 
-        <div class="small-6 columns">
-            <h1>{{{title}}}</h1>
-          <p>{{overview}}</p>            
+        <div class="small-8 columns">
+          <h1>{{ title }}</h1>
+          <ul class="inline-list">
+            <li><span>Popularity:</span> {{ popularity }}</li>
+            <li><span>Rating:</span> {{ vote_average }}</li>
+            <li><span>Votes:</span> {{ vote_count }}</li>
+          </ul>         
         </div>
 
-        <div class="small-4 columns">
-          <button {{action 'delete'}} class="right small">Remove</button>
+        <div class="small-2 columns">
+          <button {{action 'unqueueMovie' }} class="right alert unqueue-movie"><i class="fi-x"></i></button>
         </div>
       </div>
   </script>
 
-  <script type="text/x-handlebars" id="about">
-      <div class="row">
-        <div class="small-12 columns">
-          <p>Yehuda Katz is a member of the <a href="http://emberjs.com">Ember.js</a>, <a href="http://rubyonrails.org">Ruby on Rails</a>
-          and <a href="http://www.jquery.com">jQuery</a> Core Teams; he spends his daytime hours at the startup he founded,
-          <a href="http://www.tilde.io">Tilde Inc.</a>.</p>
-          <p>Yehuda is co-author of best-selling <a href="http://affiliate.manning.com/idevaffiliate.php?id=485_176">jQuery in Action</a> and
-          <a href="http://affiliate.manning.com/idevaffiliate.php?id=485_145">Rails 3 in Action</a>.</p>
-          <p>He spends most of his time hacking on open source—his main projects, along with others, like <a href="https://github.com/wycats/thor">Thor</a>,
-          <a href="http://www.handlebarsjs.com">Handlebars</a> and <a href="https://github.com/carlhuda/janus">Janus</a>—or traveling the world doing evangelism work.</p>
-          <p>He can be found on Twitter as <a href="http://www.twitter.com/wycats">@wycats</a>.</p>
-      </div>
- </script>
+
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/foundation.min.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
-  <script src="js/libs/ember-1.2.0.js"></script>
+  <script src="//builds.emberjs.com/tags/v1.1.2/ember.js"></script>
+  <script src="//builds.emberjs.com/tags/v1.0.0-beta.3/ember-data.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+  
+  <script src="js/script.js"></script>
+
   <script src="js/app.js"></script>
+  <script src="js/controllers/application_controller.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/models/movie.js"></script>
+  <script src="js/models/queue.js"></script>
+  <script src="js/controllers/movies_controller.js"></script>
+  <script src="js/controllers/movie_controller.js"></script>
+  <script src="js/controllers/queue_controller.js"></script>
+
   <script>
   </script>
 
