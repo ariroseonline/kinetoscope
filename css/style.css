@@ -3,17 +3,47 @@ html, body {
 }
 
 
-.active {
-	font-weight:bold;
-}
-
 #main {
-	margin:20px;
+	margin:15px 0 50px
 }
 
 table {
 	width:100%;
 }
+
+.movie {
+	padding: 20px 0;
+	background: white;
+	box-shadow: 0px 0px 2px 0px rgba(0,0,0,.1);
+	border-bottom: 1px solid #eee;
+}
+
+.movie.empty {
+	text-align:center;
+}
+
+.movie.inqueue{
+	background:orange;
+}
+
+.movie .poster {
+	text-align: center;
+}
+
+.movie ul span {
+	font-weight:900;
+}
+
+.movie .unqueue-movie, .movie .enqueue-movie {
+	padding:0.65rem 1rem;
+}
+.movie .unqueue-movie i, .movie .enqueue-movie i {
+	font-size: 20px;
+	text-shadow: 0px 2px 0px rgba(0,0,0,.25);
+}
+
+
+/* Dealing with Foundation's Madness */
 
 .title-area .name {
 	text-transform: uppercase;
@@ -27,38 +57,19 @@ table {
     padding-bottom: .35rem;
 }
 
+.top-bar-section ul li > .active {
+	font-weight:bold;
+}
+
 .top-bar .toggle-topbar.menu-icon a span {
 	height: 2px;
 }
 
-
-.movie {
-	padding: 20px 0;
-	background: white;
-	box-shadow: 1px 1px 2px 0px rgba(0,0,0,.2);
+.movie .inline-list {
+	font-size:.9rem;
 }
 
-.movie.empty {
-	text-align:center;
-}
-
-.movie.inqueue{
-	background:orange;
-}
-
-
-.movie .poster {
-	text-align: center;
-}
-
-.movie ul span {
-	font-weight:900;
-}
-
-.movie .remove-movie {
-	padding:0.65rem 1rem;
-}
-.movie .remove-movie i {
-	font-size: 20px;
-	text-shadow: 0px 2px 0px black;
+h1 {
+	font-size: 2rem;
+	font-weight: 100;
 }
